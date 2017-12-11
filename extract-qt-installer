@@ -115,10 +115,5 @@ ARGS="-v"
 
 chmod u+x $1
 
+QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT | grep "\(QTCI\|operation\)"
 
-if [ -n "$VERBOSE" ]
-then
-    QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT
-else
-    QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT | grep "\(QTCI\|operation\)"
-fi
