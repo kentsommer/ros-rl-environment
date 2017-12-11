@@ -122,5 +122,5 @@ EOF
 
 chmod u+x $1
 
-QT_QPA_PLATFORM=$INSTALLER --script $SCRIPT
+$INSTALLER --script $SCRIPT
 
