@@ -75,6 +75,15 @@ Controller.prototype.IntroductionPageCallback = function() {
     gui.clickButton(buttons.NextButton);
 }
 
+Controller.prototype.TargetDirectoryPageCallback = function() {
+    log("Set target installation page: $OUTPUT");
+    var widget = gui.currentPageWidget();
+    if (widget != null) {
+        widget.TargetDirectoryLineEdit.setText("$OUTPUT");
+    }
+    gui.clickButton(buttons.NextButton);
+}
+
 Controller.prototype.TargetDirectoryPageCallback = function()
 {
     gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/QtTravis");
