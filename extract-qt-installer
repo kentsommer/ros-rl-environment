@@ -111,9 +111,7 @@ if (checkBoxForm && checkBoxForm.launchQtCreatorCheckBox) {
 
 EOF
 
-ARGS="-v"
-
 chmod u+x $1
 
-QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT | grep "\(QTCI\|operation\)"
+QT_QPA_PLATFORM=$INSTALLER --script $SCRIPT
 
