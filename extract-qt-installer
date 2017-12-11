@@ -84,12 +84,6 @@ Controller.prototype.TargetDirectoryPageCallback = function() {
     gui.clickButton(buttons.NextButton);
 }
 
-Controller.prototype.TargetDirectoryPageCallback = function()
-{
-    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/QtTravis");
-    gui.clickButton(buttons.NextButton);
-}
-
 Controller.prototype.ComponentSelectionPageCallback = function() {
     var widget = gui.currentPageWidget();
     widget.selectAll();
