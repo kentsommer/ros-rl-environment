@@ -57,101 +57,55 @@ function log() {
 }
 
 function Controller() {
+    installer.autoRejectMessageBoxes();
     installer.installationFinished.connect(function() {
         gui.clickButton(buttons.NextButton);
-    });
-    installer.setMessageBoxAutomaticAnswer("OverwriteTargetDirectory", QMessageBox.Yes);
-    installer.setMessageBoxAutomaticAnswer("installationErrorWithRetry", QMessageBox.Ignore);
+    })
 }
 
 Controller.prototype.WelcomePageCallback = function() {
-    log("Welcome Page");
     gui.clickButton(buttons.NextButton);
 }
 
 Controller.prototype.CredentialsPageCallback = function() {
-    gui.clickButton(buttons.CommitButton);
-}
-
-Controller.prototype.ComponentSelectionPageCallback = function() {
-
-    var components = installer.components();
-    log("Available components: " + components.length);
-
-    for (var i = 0 ; i < components.length ;i++) {
-        log(components[i].name);
-    }
-
-    log("Select components");
-
-    function trim(str) {
-        return str.replace(/^ +/,"").replace(/ *$/,"");
-    }
-
-    var widget = gui.currentPageWidget();
-
-    var packages = trim("$PACKAGES").split(",");
-    if (packages.length > 0 && packages[0] !== "") {
-        widget.deselectAll();
-        for (var i in packages) {
-            var pkg = trim(packages[i]);
-	        log("Select " + pkg);
-	        widget.selectComponent(pkg);
-        }
-    } else {
-       log("Use default component list");
-    }
-
     gui.clickButton(buttons.NextButton);
 }
 
 Controller.prototype.IntroductionPageCallback = function() {
-    log("Introduction Page");
-    log("Retrieving meta information from remote repository");
     gui.clickButton(buttons.NextButton);
 }
 
+Controller.prototype.TargetDirectoryPageCallback = function()
+{
+    gui.currentPageWidget().TargetDirectoryLineEdit.setText(installer.value("HomeDir") + "/QtTravis");
+    gui.clickButton(buttons.NextButton);
+}
 
-Controller.prototype.TargetDirectoryPageCallback = function() {
-    log("Set target installation page: $OUTPUT");
+Controller.prototype.ComponentSelectionPageCallback = function() {
     var widget = gui.currentPageWidget();
-
-    if (widget != null) {
-        widget.TargetDirectoryLineEdit.setText("$OUTPUT");
-    }
-    
+    widget.selectAll();
     gui.clickButton(buttons.NextButton);
 }
 
 Controller.prototype.LicenseAgreementPageCallback = function() {
-    log("Accept license agreement");
-    var widget = gui.currentPageWidget();
-
-    if (widget != null) {
-        widget.AcceptLicenseRadioButton.setChecked(true);
-    }
-
+    gui.currentPageWidget().AcceptLicenseRadioButton.setChecked(true);
     gui.clickButton(buttons.NextButton);
-
 }
 
-Controller.prototype.ReadyForInstallationPageCallback = function() {
-    log("Ready to install");
-    gui.clickButton(buttons.CommitButton);
+Controller.prototype.StartMenuDirectoryPageCallback = function() {
+    gui.clickButton(buttons.NextButton);
 }
 
-Controller.prototype.PerformInstallationPageCallback = function() {
-    log("PerformInstallationPageCallback");
-    gui.clickButton(buttons.CommitButton);
+Controller.prototype.ReadyForInstallationPageCallback = function()
+{
+    gui.clickButton(buttons.NextButton);
 }
 
 Controller.prototype.FinishedPageCallback = function() {
-    var widget = gui.currentPageWidget();
-
-    if (widget.LaunchQtCreatorCheckBoxForm) {
-        // No this form for minimal platform
-        widget.LaunchQtCreatorCheckBoxForm.launchQtCreatorCheckBox.setChecked(false);
-    }
+var checkBoxForm = gui.currentPageWidget().LaunchQtCreatorCheckBoxForm
+if (checkBoxForm && checkBoxForm.launchQtCreatorCheckBox) {
+    checkBoxForm.launchQtCreatorCheckBox.checked = false;
+}
     gui.clickButton(buttons.FinishButton);
 }
 
@@ -164,7 +118,7 @@ chmod u+x $1
 
 if [ -n "$VERBOSE" ]
 then
-    QT_QPA_PLATFORM=minimal $INSTALLER $ARGS --script $SCRIPT
+    QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT
 else
-    QT_QPA_PLATFORM=minimal $INSTALLER $ARGS --script $SCRIPT | grep "\(QTCI\|operation\)"
+    QT_QPA_PLATFORM=$INSTALLER $ARGS --script $SCRIPT | grep "\(QTCI\|operation\)"
 fi
