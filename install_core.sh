@@ -430,6 +430,18 @@ else
 fi
 
 
+##########
+## Swig ##
+##########
+installed=$(dpkg -s swig | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y swig
+  echo ""
+else
+  echo "swig is already installed... skipping"
+fi
+
+
 ##################
 ## checkinstall ##
 ##################
@@ -543,31 +555,6 @@ if [ "" == "$installed" ]; then
   echo ""
 else
   echo "cuda is already installed... skipping"
-fi
-
-
-#############
-## PyTorch ##
-#############
-installed=$(pip3 list --format=columns | grep torch)
-if [ "" == "$installed" ]; then
-  sudo pip3 install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
-  sudo pip3 install torchvision
-  echo ""
-else
-  echo "pytorch is already installed... skipping"
-fi
-
-
-################
-## Tensorflow ##
-################
-installed=$(pip3 list --format=columns | grep tensorflow-gpu)
-if [ "" == "$installed" ]; then
-  sudo pip3 install tensorflow-gpu
-  echo ""
-else
-  echo "tensorflow-gpu is already installed... skipping"
 fi
 
 
