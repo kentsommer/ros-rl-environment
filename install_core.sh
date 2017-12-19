@@ -406,6 +406,18 @@ else
 fi
 
 
+############
+## openni ##
+############
+installed=$(dpkg -s libopenni-dev | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y libopenni-dev
+  echo ""
+else
+  echo "libopenni-dev is already installed... skipping"
+fi
+
+
 #################
 ## collada-dom ##
 #################
@@ -588,7 +600,12 @@ fi
 ## Make Virtual Env for use later... ##
 #######################################
 source `which virtualenvwrapper.sh`
-mkvirtualenv ros -p python3
+if [ ! -d ~/.virtualenvs/ros ]; then
+  mkvirtualenv ros -p python3
+else
+  echo "ROS virtualenv already exists!"
+fi 
+
 
 ##############
 ## Finished ##

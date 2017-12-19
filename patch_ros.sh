@@ -14,6 +14,15 @@ cd ~/Software/ROS/ros_catkin_ws/src
 rm -rf catkin
 git clone https://github.com/ros/catkin.git -b kinetic-devel
 
+
+##############
+## Geometry ##
+##############
+cd ~/Software/ROS/ros_catkin_ws/src
+rm -rf geometry
+git clone https://github.com/ros/geometry.git -b indigo-devel
+
+
 ################
 ## Geometry 2 ##
 ################
@@ -41,3 +50,11 @@ git clone https://github.com/kentsommer/ros_comm.git -b kinetic-devel
 cd ~/Software/ROS/ros_catkin_ws/src
 rm -rf robot_state_publisher
 git clone https://github.com/ros/robot_state_publisher.git
+
+
+###########
+## Xacro ##
+###########
+cd ~/Software/ROS/ros_catkin_ws/src
+rm -rf xacro
+git clone https://github.com/ros/xacro.git -b lunar-devel

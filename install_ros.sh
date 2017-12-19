@@ -213,9 +213,11 @@ if [ "" == "$installed" ]; then
     wstool init -j8 src kinetic-desktop-full-wet.rosinstall |& tee src.txt
   else
     rm -rf src/catkin
+    rm -rf src/geometry
     rm -rf src/geometry2
     rm -rf src/ros_comm
     rm -rf src/robot_state_publisher
+    rm -rf src/xacro
   fi
 
   while true;
@@ -223,6 +225,7 @@ if [ "" == "$installed" ]; then
     wstool update -j8 -t src |& tee src.txt
     error=$(grep "ERROR" src.txt)
     if [ "" == "$error" ]; then
+      rm -rf src.txt
       break
     fi
   done
