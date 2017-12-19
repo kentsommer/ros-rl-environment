@@ -21,8 +21,8 @@ cd ~/Software
 #############
 installed=$(pip3 list --format=columns | grep torch)
 if [ "" == "$installed" ]; then
-  sudo pip3 install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
-  sudo pip3 install torchvision
+  pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
+  pip install torchvision
   echo ""
 else
   echo "pytorch is already installed... skipping"
@@ -34,7 +34,7 @@ fi
 ################
 installed=$(pip3 list --format=columns | grep tensorflow-gpu)
 if [ "" == "$installed" ]; then
-  sudo pip3 install tensorflow-gpu
+  pip install tensorflow-gpu
   echo ""
 else
   echo "tensorflow-gpu is already installed... skipping"
