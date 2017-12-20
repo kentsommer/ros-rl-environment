@@ -429,6 +429,17 @@ else
   echo "libcollada-dom2.4-dp-dev is already installed... skipping"
 fi
 
+##########
+## hdf5 ##
+##########
+installed=$(dpkg -s libhdf5-dev | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y libhdf5-dev
+  echo ""
+else
+  echo "libhdf5-dev is already installed... skipping"
+fi
+
 
 ##########
 ## Swig ##
