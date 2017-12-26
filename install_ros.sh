@@ -186,13 +186,36 @@ fi
 ##############
 ## Gazebo 7 ##
 ##############
-installed=$(dpkg -s gazebo7 | grep "ok installed")
+# installed=$(dpkg -s gazebo7 | grep "ok installed")
+# if [ "" == "$installed" ]; then
+#   sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+#   wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+#   sudo apt update
+#   sudo apt install -y gazebo7
+#   echo ""
+# else
+#   echo "gazebo7 is already installed... skipping"
+# fi
+
+installed=$(dpkg -s gazebo7-src | grep "ok installed")
 if [ "" == "$installed" ]; then
-  sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-  wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-  sudo apt update
-  sudo apt install -y gazebo7
-  sudo apt install -y libgazebo7-dev
+  cd ~/Software 
+
+  wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /tmp/dependencies.sh
+  GAZEBO_MAJOR_VERSION=7
+  DISTRO=xenial
+  . /tmp/dependencies.sh
+  sudo apt install -y $(sed 's:\\ ::g' <<< $BASE_DEPENDENCIES) $(sed 's:\\ ::g' <<< $GAZEBO_BASE_DEPENDENCIES)
+
+  hg clone https://bitbucket.org/osrf/gazebo -r gazebo7
+  cd gazebo
+  mkdir build
+  cd build
+  cmake ..
+  make -j $(nproc)
+  sudo checkinstall --pkgname=gazebo7-src --pkgversion="7" -y
+  echo '/usr/local/lib' | sudo tee /etc/ld.so.conf.d/gazebo.conf
+  sudo ldconfig
   echo ""
 else
   echo "gazebo7 is already installed... skipping"

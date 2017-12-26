@@ -69,3 +69,15 @@ if [ "" == "$installed" ]; then
 else
   echo "Baselines is already installed... skipping"
 fi
+
+
+#################
+## TensorForce ##
+#################
+installed=$(pip3 list --format=columns | grep tensorforce)
+if [ "" == "$installed" ]; then
+  pip install tensorforce
+  echo ""
+else
+  echo "TensorForce is already installed... skipping"
+fi

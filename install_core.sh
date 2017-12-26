@@ -196,6 +196,42 @@ else
 fi
 
 
+##############
+## avdevice ##
+##############
+installed=$(dpkg -s libavdevice-dev | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y libavdevice-dev
+  echo ""
+else
+  echo "libavdevice-dev is already installed... skipping"
+fi
+
+
+#############
+## avcodec ##
+#############
+installed=$(dpkg -s libavcodec-dev | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y libavcodec-dev
+  echo ""
+else
+  echo "libavcodec-dev is already installed... skipping"
+fi
+
+
+##############
+## avformat ##
+##############
+installed=$(dpkg -s libavformat-dev | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y libavformat-dev
+  echo ""
+else
+  echo "libavformat-dev is already installed... skipping"
+fi
+
+
 ###########
 ## Boost ##
 ###########
