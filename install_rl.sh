@@ -11,7 +11,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros
+workon ros2
 
 cd ~/Software
 
@@ -19,9 +19,9 @@ cd ~/Software
 #############
 ## PyTorch ##
 #############
-installed=$(pip3 list --format=columns | grep torch)
+installed=$(pip2 list --format=columns | grep torch)
 if [ "" == "$installed" ]; then
-  pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
+  pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp27-cp27mu-linux_x86_64.whl 
   pip install torchvision
   echo ""
 else
@@ -32,7 +32,7 @@ fi
 ################
 ## Tensorflow ##
 ################
-installed=$(pip3 list --format=columns | grep tensorflow-gpu)
+installed=$(pip2 list --format=columns | grep tensorflow-gpu)
 if [ "" == "$installed" ]; then
   pip install tensorflow-gpu
   echo ""
@@ -44,7 +44,7 @@ fi
 #########
 ## Gym ##
 #########
-installed=$(pip3 list --format=columns | grep gym)
+installed=$(pip2 list --format=columns | grep gym)
 if [ "" == "$installed" ]; then
   git clone https://github.com/openai/gym.git
   cd gym
@@ -59,7 +59,7 @@ fi
 ###############
 ## Baselines ##
 ###############
-installed=$(pip3 list --format=columns | grep baselines)
+installed=$(pip2 list --format=columns | grep baselines)
 if [ "" == "$installed" ]; then
   git clone https://github.com/openai/baselines.git
   cd baselines
@@ -74,7 +74,7 @@ fi
 #################
 ## TensorForce ##
 #################
-installed=$(pip3 list --format=columns | grep tensorforce)
+installed=$(pip2 list --format=columns | grep tensorforce)
 if [ "" == "$installed" ]; then
   pip install tensorforce
   echo ""

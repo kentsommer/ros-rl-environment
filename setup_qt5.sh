@@ -6,15 +6,15 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 #########
 ## SIP ##
 #########
-installed=$(dpkg -s python3-sip-src | grep "ok installed")
+installed=$(dpkg -s python2-sip-src | grep "ok installed")
 if [ "" == "$installed" ]; then
   cd ~/Software
   wget -N https://downloads.sourceforge.net/project/pyqt/sip/sip-4.19.6/sip-4.19.6.tar.gz
   tar -xvf sip-4.19.6.tar.gz
   cd sip-4.19.6
-  python3 configure.py 
+  python2 configure.py 
   make -j $(nproc)
-  sudo checkinstall --pkgname=python3-sip-src --pkgversion="4.19.6" -y
+  sudo checkinstall --pkgname=python2-sip-src --pkgversion="4.19.6" -y
   echo ""
 else
   echo "python3-sip-src is already installed... skipping"
@@ -24,15 +24,15 @@ fi
 ###########
 ## PyQt5 ##
 ###########
-installed=$(dpkg -s python3-pyqt5-src | grep "ok installed")
+installed=$(dpkg -s python2-pyqt5-src | grep "ok installed")
 if [ "" == "$installed" ]; then
   cd ~/Software
   wget -N https://sourceforge.net/projects/pyqt/files/PyQt5/PyQt-5.9.2/PyQt5_gpl-5.9.2.tar.gz
   tar -xvf PyQt5_gpl-5.9.2.tar.gz
   cd PyQt5_gpl-5.9.2
-  python3 configure.py --confirm-license
+  python2 configure.py --confirm-license
   make -j $(nproc)
-  sudo checkinstall --pkgname=python3-pyqt5-src --pkgversion="5.9.2" -y
+  sudo checkinstall --pkgname=python2-pyqt5-src --pkgversion="5.9.2" -y
   echo ""
 else
   echo "python3-pyqt5-src is already installed... skipping"
@@ -43,7 +43,7 @@ fi
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros
+workon ros2
 
 
 ###########################################

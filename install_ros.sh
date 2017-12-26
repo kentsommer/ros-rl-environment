@@ -18,13 +18,13 @@ $SCRIPT_DIR/setup_qt5.sh
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros
+workon ros2
 
 
 #################
 ## Python Deps ##
 #################
-installed=$(pip3 list --format=columns | grep rosdep)
+installed=$(pip2 list --format=columns | grep rosdep)
 if [ "" == "$installed" ]; then
   pip install rosdep
   pip install rosinstall-generator
@@ -39,7 +39,7 @@ fi
 ##############
 ## ROS DEPS ##
 ##############
-installed=$(pip3 list --format=columns | grep empy)
+installed=$(pip2 list --format=columns | grep empy)
 if [ "" == "$installed" ]; then
   pip install empy
   echo ""
@@ -47,7 +47,7 @@ else
   echo "empy is already installed... skipping"
 fi
 
-installed=$(pip3 list --format=columns | grep nose)
+installed=$(pip2 list --format=columns | grep nose)
 if [ "" == "$installed" ]; then
   pip install nose
   echo ""
@@ -55,7 +55,7 @@ else
   echo "nose is already installed... skipping"
 fi
 
-installed=$(pip3 list --format=columns | grep numpy)
+installed=$(pip2 list --format=columns | grep numpy)
 if [ "" == "$installed" ]; then
   pip install numpy
   echo ""
@@ -63,7 +63,7 @@ else
   echo "numpy is already installed... skipping"
 fi
 
-installed=$(pip3 list --format=columns | grep defusedxml)
+installed=$(pip2 list --format=columns | grep defusedxml)
 if [ "" == "$installed" ]; then
   pip install defusedxml
   echo ""
@@ -71,7 +71,7 @@ else
   echo "defusedxml is already installed... skipping"
 fi
 
-installed=$(pip3 list --format=columns | grep netifaces)
+installed=$(pip2 list --format=columns | grep netifaces)
 if [ "" == "$installed" ]; then
   pip install netifaces
   echo ""
@@ -253,7 +253,7 @@ if [ "" == "$installed" ]; then
     fi
   done
 
-  # Patch packages for Python 3
+  # Patch packages
   $SCRIPT_DIR/patch_ros.sh
 
   ./src/catkin/bin/catkin_make_isolated --cmake-args -DCMAKE_BUILD_TYPE=Release

@@ -501,19 +501,6 @@ else
 fi
 
 
-##########
-## PIP3 ##
-##########
-installed=$(dpkg -s python3-pip | grep "ok installed")
-if [ "" == "$installed" ]; then
-  sudo apt install -y python3-pip
-  sudo pip3 install --upgrade pip
-  echo ""
-else
-  echo "python3-pip is already installed... skipping"
-fi
-
-
 ##########################
 ## VirtualEnv & Wrapper ##
 ##########################
@@ -635,7 +622,7 @@ fi
 #######################################
 source `which virtualenvwrapper.sh`
 if [ ! -d ~/.virtualenvs/ros ]; then
-  mkvirtualenv ros -p python3
+  mkvirtualenv ros2 -p python2
 else
   echo "ROS virtualenv already exists!"
 fi 
