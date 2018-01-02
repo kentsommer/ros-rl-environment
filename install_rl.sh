@@ -81,3 +81,15 @@ if [ "" == "$installed" ]; then
 else
   echo "TensorForce is already installed... skipping"
 fi
+
+
+############
+## Visdom ##
+############
+installed=$(pip2 list --format=columns | grep visdom)
+if [ "" == "$installed" ]; then
+  pip install visdom
+  echo ""
+else
+  echo "Visdom is already installed... skipping"
+fi
