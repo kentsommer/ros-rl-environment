@@ -12,7 +12,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros2
+workon ros
 
 
 

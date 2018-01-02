@@ -18,22 +18,7 @@ $SCRIPT_DIR/setup_qt5.sh
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros2
-
-
-#################
-## Python Deps ##
-#################
-installed=$(pip2 list --format=columns | grep rosdep)
-if [ "" == "$installed" ]; then
-  pip install rosdep
-  pip install rosinstall-generator
-  pip install wstool
-  pip install rosinstall
-  echo ""
-else
-  echo "ROS python build dependencies are already installed... skipping"
-fi
+workon ros
 
 
 ##############
@@ -80,27 +65,6 @@ else
 fi
 
 
-#############
-## URDFDOM ##
-#############
-installed=$(dpkg -s urdfdom-src | grep "ok installed")
-if [ "" == "$installed" ]; then
-  mkdir -p ~/Software/ROS/misc
-  cd ~/Software/ROS/misc
-  git clone https://github.com/ros/urdfdom.git
-  cd urdfdom
-  wget -N https://raw.githubusercontent.com/ros-gbp/urdfdom-release/release/indigo/urdfdom/package.xml
-  mkdir build
-  cd build
-  cmake ..
-  make -j $(nproc)
-  sudo checkinstall --pkgname=urdfdom-src --pkgversion="1.0" -y
-  echo ""
-else
-  echo "urdfdom-src is already installed... skipping"
-fi
-
-
 #####################
 ## URDFDOM Headers ##
 #####################
@@ -119,6 +83,27 @@ if [ "" == "$installed" ]; then
   echo ""
 else
   echo "urdfdom-headers-src is already installed... skipping"
+fi
+
+
+#############
+## URDFDOM ##
+#############
+installed=$(dpkg -s urdfdom-src | grep "ok installed")
+if [ "" == "$installed" ]; then
+  mkdir -p ~/Software/ROS/misc
+  cd ~/Software/ROS/misc
+  git clone https://github.com/ros/urdfdom.git
+  cd urdfdom
+  wget -N https://raw.githubusercontent.com/ros-gbp/urdfdom-release/release/indigo/urdfdom/package.xml
+  mkdir build
+  cd build
+  cmake ..
+  make -j $(nproc)
+  sudo checkinstall --pkgname=urdfdom-src --pkgversion="1.0" -y
+  echo ""
+else
+  echo "urdfdom-src is already installed... skipping"
 fi
 
 
@@ -240,7 +225,7 @@ if [ "" == "$installed" ]; then
     rm -rf src/geometry2
     rm -rf src/ros_comm
     rm -rf src/robot_state_publisher
-    rm -rf src/xacro
+    # rm -rf src/xacro
   fi
 
   while true;

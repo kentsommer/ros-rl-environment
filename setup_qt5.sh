@@ -17,7 +17,7 @@ if [ "" == "$installed" ]; then
   sudo checkinstall --pkgname=python2-sip-src --pkgversion="4.19.6" -y
   echo ""
 else
-  echo "python3-sip-src is already installed... skipping"
+  echo "python2-sip-src is already installed... skipping"
 fi
 
 
@@ -35,7 +35,7 @@ if [ "" == "$installed" ]; then
   sudo checkinstall --pkgname=python2-pyqt5-src --pkgversion="5.9.2" -y
   echo ""
 else
-  echo "python3-pyqt5-src is already installed... skipping"
+  echo "python2-pyqt5-src is already installed... skipping"
 fi
 
 
@@ -43,7 +43,7 @@ fi
 ## Activate our ROS virtualenv ##
 #################################
 source `which virtualenvwrapper.sh`
-workon ros2
+workon ros
 
 
 ###########################################

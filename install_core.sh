@@ -151,12 +151,12 @@ fi
 #########
 ## png ##
 #########
-installed=$(dpkg -s libpng-dev | grep "ok installed")
+installed=$(dpkg -s libpng12-dev | grep "ok installed")
 if [ "" == "$installed" ]; then
-  sudo apt install -y libpng-dev
+  sudo apt install -y libpng12-dev
   echo ""
 else
-  echo "libpng-dev is already installed... skipping"
+  echo "libpng12-dev is already installed... skipping"
 fi
 
 
@@ -232,6 +232,18 @@ else
 fi
 
 
+###############
+## python-tk ##
+###############
+installed=$(dpkg -s python-tk | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-tk
+  echo ""
+else
+  echo "python-tk is already installed... skipping"
+fi
+
+
 ###########
 ## Boost ##
 ###########
@@ -239,7 +251,7 @@ installed=$(dpkg -s libboost-all-dev | grep "ok installed")
 if [ "" == "$installed" ]; then
   sudo apt install -y libboost-all-dev
   # Hacky fix to get portions of ROS to find boost_py3
-  sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py35.so /usr/lib/x86_64-linux-gnu/libboost_python3.so
+  # sudo ln -s /usr/lib/x86_64-linux-gnu/libboost_python-py35.so /usr/lib/x86_64-linux-gnu/libboost_python3.so
   echo ""
 else
   echo "libboost-all-dev is already installed... skipping"
@@ -489,6 +501,101 @@ else
 fi
 
 
+############
+## rosdep ##
+############
+installed=$(dpkg -s python-rosdep | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-rosdep
+  echo ""
+else
+  echo "python-rosdep is already installed... skipping"
+fi
+
+##########################
+## rosinstall-generator ##
+##########################
+installed=$(dpkg -s python-rosinstall-generator | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-rosinstall-generator
+  echo ""
+else
+  echo "python-rosinstall-generator is already installed... skipping"
+fi
+
+
+############
+## wstool ##
+############
+installed=$(dpkg -s python-wstool | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-wstool
+  echo ""
+else
+  echo "python-wstool is already installed... skipping"
+fi
+
+
+################
+## rosinstall ##
+################
+installed=$(dpkg -s python-rosinstall | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-rosinstall
+  echo ""
+else
+  echo "python-rosinstall is already installed... skipping"
+fi
+
+
+###########
+## rospy ##
+###########
+installed=$(dpkg -s python-rospy | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-rospy
+  echo ""
+else
+  echo "python-rospy is already installed... skipping"
+fi
+
+
+###########
+## genpy ##
+###########
+installed=$(dpkg -s python-genpy | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-genpy
+  echo ""
+else
+  echo "python-genpy is already installed... skipping"
+fi
+
+
+############
+## roslib ##
+############
+installed=$(dpkg -s python-roslib | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-roslib
+  echo ""
+else
+  echo "python-roslib is already installed... skipping"
+fi
+
+
+###################
+## rosgraph_msgs ##
+###################
+installed=$(dpkg -s python-rosgraph-msgs | grep "ok installed")
+if [ "" == "$installed" ]; then
+  sudo apt install -y python-rosgraph-msgs
+  echo ""
+else
+  echo "python-rosgraph-msgs is already installed... skipping"
+fi
+
+
 ##################
 ## checkinstall ##
 ##################
@@ -622,7 +729,7 @@ fi
 #######################################
 source `which virtualenvwrapper.sh`
 if [ ! -d ~/.virtualenvs/ros ]; then
-  mkvirtualenv ros2 -p python2
+  mkvirtualenv ros -p python2 --system-site-packages
 else
   echo "ROS virtualenv already exists!"
 fi 

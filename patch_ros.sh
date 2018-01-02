@@ -52,9 +52,9 @@ rm -rf robot_state_publisher
 git clone https://github.com/ros/robot_state_publisher.git
 
 
-###########
-## Xacro ##
-###########
-cd ~/Software/ROS/ros_catkin_ws/src
-rm -rf xacro
-git clone https://github.com/ros/xacro.git -b lunar-devel
+# ###########
+# ## Xacro ##
+# ###########
+# cd ~/Software/ROS/ros_catkin_ws/src
+# rm -rf xacro
+# git clone https://github.com/ros/xacro.git -b lunar-devel
