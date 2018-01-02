@@ -650,9 +650,9 @@ fi
 ####################
 installed=$(nvidia-smi | grep Version)
 if [ "" == "$installed" ]; then
-  sudo add-apt-repository ppa:graphics-drivers/ppa
+  sudo add-apt-repository -y ppa:graphics-drivers/ppa
   sudo apt update
-  sudo apt full-upgrade
+  sudo apt -y full-upgrade
   sudo apt install -y nvidia-387-dev nvidia-settings nvidia-opencl-icd-387
   echo ""
 else
