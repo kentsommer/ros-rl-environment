@@ -186,10 +186,14 @@ installed=$(dpkg -s gazebo7-src | grep "ok installed")
 if [ "" == "$installed" ]; then
   cd ~/Software 
 
+  sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+  wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+  sudo apt update
+
   wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /tmp/dependencies.sh
   GAZEBO_MAJOR_VERSION=7
   DISTRO=xenial
-  . /tmp/dependencies.sh
+  source /tmp/dependencies.sh
   sudo apt install -y $(sed 's:\\ ::g' <<< $BASE_DEPENDENCIES) $(sed 's:\\ ::g' <<< $GAZEBO_BASE_DEPENDENCIES)
 
   hg clone https://bitbucket.org/osrf/gazebo -r gazebo7
